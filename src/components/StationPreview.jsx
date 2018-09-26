@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
 import Star from '@material-ui/icons/Star';
 import StarBorder from '@material-ui/icons/StarBorder';
 import PropTypes from 'prop-types';
@@ -11,16 +11,6 @@ import Avatar from '@material-ui/core/Avatar';
 import PlaceIcon from '@material-ui/icons/Place';
 import CityIcon from '@material-ui/icons/LocationCity';
 import Button from '@material-ui/core/Button';
-
-const styles = {
-  root: {
-    width: 200,
-    padding: 10,
-    paddingBottom: 0,
-    margin: 15,
-    textAlign: 'left'
-  }
-};
 
 class StationPreview extends Component {
   toggleFavorite = () => {
@@ -33,9 +23,9 @@ class StationPreview extends Component {
   };
 
   render() {
-    const { classes, Name, Region, City, StationID, isFavorite } = this.props;
+    const { Name, Region, City, StationID, isFavorite, history } = this.props;
     return (
-      <Paper className={classes.root} key={StationID}>
+      <Paper className="stationPreview" key={StationID}>
         <List>
           <ListItem>
             {isFavorite ? (
@@ -60,7 +50,12 @@ class StationPreview extends Component {
             </Avatar>
             <ListItemText secondary={City} />
           </ListItem>
-          <Button variant="raised" size="large" color="primary">
+          <Button
+            variant="raised"
+            size="large"
+            color="primary"
+            onClick={() => history.push('/station/' + StationID)}
+          >
             Mer info
           </Button>
         </List>
@@ -82,4 +77,4 @@ StationPreview.defaultProps = {
   isFavorite: false
 };
 
-export default withStyles(styles)(StationPreview);
+export default withRouter(StationPreview);

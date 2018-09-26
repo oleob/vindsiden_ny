@@ -35,6 +35,10 @@ body,
   justify-content: center;
 }
 
-.stationTitle {
-  font-size: 32;
+.stationPreview {
+  width: 200px;
+  padding: 10px;
+  padding-bottom: 0px;
+  margin: 15px;
+  text-align: left;
 }

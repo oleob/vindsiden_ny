@@ -10,6 +10,7 @@ const initialState = {
   city: '',
   copyright: '',
   meteogramUrl: '',
+  marinogramUrl: '',
   text: '',
   fetching: false
 };
@@ -23,13 +24,18 @@ const singleStationReducer = (state = initialState, action) => {
         city: '',
         copyright: '',
         meteogramUrl: '',
+        marinogramUrl: '',
         text: '',
         fetching: true
       };
     case FETCHED_STATION:
       let meteogramUrl = action.payload.station.MeteogramUrl;
-      if (!meteogramUrl.endsWith('/')) {
+      let marinogramUrl = action.payload.station.MarinogramUrl;
+      if (!meteogramUrl.endsWith('/') && meteogramUrl.length > 0) {
         meteogramUrl += '/';
+      }
+      if (!marinogramUrl.endsWith('/') && marinogramUrl.length > 0) {
+        marinogramUrl += '/';
       }
 
       return {
@@ -39,6 +45,7 @@ const singleStationReducer = (state = initialState, action) => {
         city: action.payload.station.City,
         copyright: action.payload.station.Copyright,
         meteogramUrl,
+        marinogramUrl,
         text: action.payload.station.Text,
         fetching: false
       };
@@ -49,6 +56,7 @@ const singleStationReducer = (state = initialState, action) => {
         city: '',
         copyright: '',
         meteogramUrl: '',
+        marinogramUrl: '',
         text: '',
         fetching: false
       };

@@ -5,6 +5,8 @@ import Paper from '@material-ui/core/Paper';
 
 import { fetchSingleStation } from '../actions/singleStationActions';
 
+import WindChart from '../components/WindChart';
+
 class Station extends Component {
   componentDidMount() {
     const { fetchSingleStation, id } = this.props;
@@ -19,16 +21,27 @@ class Station extends Component {
       copyright,
       text,
       meteogramUrl,
-      showTemp1,
-      showTemp2
+      marinogramUrl
     } = this.props;
+
+    const copyrightString = copyright.length > 0 ? 'Eies av ' + copyright : '';
+    const regionString = region.length > 0 ? ', ' + region : '';
     return (
       <Paper className="container">
         <h1>{name}</h1>
-        <h1>{region}</h1>
-        <h1>{city}</h1>
-        {showTemp1 && <img src={meteogramUrl + 'avansert_meteogram.png'} />}
-        {showTemp2 && <img src={meteogramUrl + 'marinogram.png'} />}
+        <h2>
+          {city}
+          {regionString}
+        </h2>
+        <h3>{copyrightString}</h3>
+        <p>{text}</p>
+        {meteogramUrl.length > 0 && (
+          <img src={meteogramUrl + 'avansert_meteogram.png'} />
+        )}
+        {marinogramUrl.length > 0 && (
+          <img src={marinogramUrl + 'marinogram.png'} />
+        )}
+        <WindChart />
       </Paper>
     );
   }
@@ -40,10 +53,8 @@ const mapStateToProps = state => ({
   city: state.singleStationReducer.city,
   copyright: state.singleStationReducer.copyright,
   meteogramUrl: state.singleStationReducer.meteogramUrl,
-  text: state.singleStationReducer.text,
-  showWind: state.singleStationReducer.showWind,
-  showTemp1: state.singleStationReducer.showTemp1,
-  showTemp2: state.singleStationReducer.showTemp2
+  marinogramUrl: state.singleStationReducer.marinogramUrl,
+  text: state.singleStationReducer.text
 });
 
 const mapDispatchToProps = {
@@ -58,9 +69,8 @@ Station.propTypes = {
   fetchSingleStation: PropTypes.func.isRequired,
   copyright: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  showWind: PropTypes.bool.isRequired,
-  showTemp1: PropTypes.bool.isRequired,
-  showTemp2: PropTypes.bool.isRequired
+  meteogramUrl: PropTypes.string.isRequired,
+  marinogramUrl: PropTypes.string.isRequired
 };
 
 export default connect(

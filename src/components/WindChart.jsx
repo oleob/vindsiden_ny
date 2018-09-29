@@ -4,10 +4,17 @@ import Chart from 'chart.js';
 
 ReactChartkick.addAdapter(Chart);
 
-const data = { '2017-01-01': 11, '2017-01-02': 6 };
-
 const WindChart = props => {
-  return <LineChart data={data} />;
+  return (
+    <LineChart
+      legend="bottom"
+      ytitle="m/s"
+      suffix=" m/s"
+      data={props.data}
+      messages={{ empty: 'No data' }}
+      colors={['#e57b7b', '#7be586', '#9ce9f4']}
+    />
+  );
 };
 
 export default WindChart;

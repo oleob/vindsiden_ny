@@ -1,7 +1,10 @@
 import {
   FETCHING_STATION,
   FETCHED_STATION,
-  FETCHING_STATION_FAILED
+  FETCHING_STATION_FAILED,
+  FETCHING_WIND_DATA,
+  FETCHED_WIND_DATA,
+  FETCHING_WIND_DATA_FAILED
 } from '../actions/singleStationActions';
 
 const initialState = {
@@ -12,6 +15,7 @@ const initialState = {
   meteogramUrl: '',
   marinogramUrl: '',
   text: '',
+  windData: [],
   fetching: false
 };
 
@@ -19,6 +23,7 @@ const singleStationReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCHING_STATION:
       return {
+        ...state,
         name: '',
         region: '',
         city: '',
@@ -51,6 +56,7 @@ const singleStationReducer = (state = initialState, action) => {
       };
     case FETCHING_STATION_FAILED:
       return {
+        ...state,
         name: '',
         region: '',
         city: '',
@@ -58,6 +64,37 @@ const singleStationReducer = (state = initialState, action) => {
         meteogramUrl: '',
         marinogramUrl: '',
         text: '',
+        fetching: false
+      };
+    case FETCHING_WIND_DATA:
+      return {
+        ...state,
+        windData: [],
+        fetching: true
+      };
+    case FETCHED_WIND_DATA:
+      let avgWindData = {};
+      let maxWindData = {};
+      let minWindData = {};
+      action.payload.data.map(point => {
+        avgWindData[point.Time] = point.WindAvg.toFixed(2);
+        maxWindData[point.Time] = point.WindMax.toFixed(2);
+        minWindData[point.Time] = point.WindMin.toFixed(2);
+        return null;
+      });
+      return {
+        ...state,
+        windData: [
+          { name: 'Gj. vind', data: avgWindData },
+          { name: 'Maks vind', data: maxWindData },
+          { name: 'Min vind', data: minWindData }
+        ],
+        fetching: false
+      };
+    case FETCHING_WIND_DATA_FAILED:
+      return {
+        ...state,
+        windData: [],
         fetching: false
       };
     default:

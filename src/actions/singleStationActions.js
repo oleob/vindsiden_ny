@@ -4,6 +4,20 @@ const FETCHING_STATION = 'FETCHING_STATION';
 const FETCHED_STATION = 'FETCHED_STATION';
 const FETCHING_STATION_FAILED = 'FETCHING_STATION_FAILED';
 
+const FETCHING_WIND_DATA = 'FETCHING_WIND_DATA';
+const FETCHED_WIND_DATA = 'FETCHED_WIND_DATA';
+const FETCHING_WIND_DATA_FAILED = 'FETCHING_WIND_DATA_FAILED';
+
+const fetchWindData = (id, date) => dispatch => {
+  dispatch({ type: FETCHING_WIND_DATA });
+  getRequest(
+    `/api/measurements/${id}?date=${date.getFullYear()}-${date.getMonth() +
+      1}-${date.getDate()}`
+  ).then(res =>
+    dispatch({ type: FETCHED_WIND_DATA, payload: { data: res.data } })
+  );
+};
+
 const fetchSingleStation = id => dispatch => {
   dispatch({ type: FETCHING_STATION });
 
@@ -16,5 +30,12 @@ const fetchSingleStation = id => dispatch => {
     });
 };
 
-export { fetchSingleStation };
-export { FETCHING_STATION, FETCHED_STATION, FETCHING_STATION_FAILED };
+export { fetchSingleStation, fetchWindData };
+export {
+  FETCHING_STATION,
+  FETCHED_STATION,
+  FETCHING_STATION_FAILED,
+  FETCHING_WIND_DATA,
+  FETCHED_WIND_DATA,
+  FETCHING_WIND_DATA_FAILED
+};

@@ -44,7 +44,7 @@ class Station extends Component {
         <WindChart dataPoints={filteredDataPoints} />
         <WindDirectionChart data={windDirectionData} />
         <WindFilter {...{ updateFilter, filterValue }} />
-        <TemperatureChart data={tempData} />
+        <TemperatureChart dataPoints={filteredDataPoints} />
       </div>
     );
   }
@@ -59,7 +59,6 @@ const mapStateToProps = state => ({
   marinogramUrl: state.singleStationReducer.marinogramUrl,
   text: state.singleStationReducer.text,
   windDirectionData: state.singleStationReducer.windDirectionData,
-  tempData: state.singleStationReducer.tempData,
   filteredDataPoints: state.singleStationReducer.filteredDataPoints,
   filterValue: state.singleStationReducer.filterValue
 });
@@ -82,7 +81,6 @@ Station.propTypes = {
   meteogramUrl: PropTypes.string.isRequired,
   marinogramUrl: PropTypes.string.isRequired,
   windDirectionData: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  tempData: PropTypes.shape({}).isRequired,
   updateFilter: PropTypes.func.isRequired,
   filteredDataPoints: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   filterValue: PropTypes.string.isRequired

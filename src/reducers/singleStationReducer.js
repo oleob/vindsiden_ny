@@ -17,7 +17,6 @@ const initialState = {
   marinogramUrl: '',
   text: '',
   windDirectionData: [],
-  tempData: {},
   dataPoints: [],
   filteredDataPoints: [],
   fetching: false,
@@ -39,10 +38,8 @@ const filterData = data => {
 
 const createWindData = data => {
   let windDirectionData = [];
-  let tempData = {};
   data.map(point => {
     let date = point.Time;
-    tempData[date] = point.Temperature1.toFixed(2);
     windDirectionData.push({
       date: new Date(date),
       direction: point.DirectionAvg
@@ -64,7 +61,6 @@ const createWindData = data => {
     });
   }
   return {
-    tempData,
     windDirectionData
   };
 };

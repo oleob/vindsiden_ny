@@ -24,7 +24,6 @@ class WindChart extends Component {
       const dataPoints = this.props.dataPoints.filter(
         dataPoint => dataPoint.date.valueOf() >= filterDate.valueOf()
       );
-      console.log(dataPoints.length);
 
       const avgWind = {};
       const maxWind = {};

@@ -10,25 +10,16 @@ class WindChart extends Component {
     const filterDate = new Date();
     filterDate.setHours(filterDate.getHours() - 5);
     this.state = {
-      data: [],
-      filterDate
+      data: []
     };
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
-      const filterDate = new Date();
-      filterDate.setHours(
-        filterDate.getHours() - parseInt(this.props.filterValue)
-      );
-      const dataPoints = this.props.dataPoints.filter(
-        dataPoint => dataPoint.date.valueOf() >= filterDate.valueOf()
-      );
-
       const avgWind = {};
       const maxWind = {};
       const minWind = {};
-      dataPoints.map(dataPoint => {
+      this.props.dataPoints.map(dataPoint => {
         const dateString = dataPoint.date.toUTCString();
         avgWind[dateString] = dataPoint.avgWind;
         maxWind[dateString] = dataPoint.maxWind;
@@ -37,7 +28,6 @@ class WindChart extends Component {
       });
 
       this.setState({
-        filterDate,
         data: [
           { name: 'Gj. vind', data: avgWind },
           { name: 'Maks vind', data: maxWind },
@@ -48,7 +38,6 @@ class WindChart extends Component {
   }
 
   render() {
-    console.log(this.state);
     const { data } = this.state;
     return (
       <LineChart

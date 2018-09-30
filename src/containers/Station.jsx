@@ -30,22 +30,18 @@ class Station extends Component {
       text,
       meteogramUrl,
       marinogramUrl,
-      windData,
       windDirectionData,
       tempData,
       newData,
       updateFilter,
+      filteredDataPoints,
       filterValue
     } = this.props;
 
     return (
       <div className="container">
         <InfoBox {...{ name, region, city, copyright, text }} />
-        <WindChart
-          data={windData}
-          dataPoints={newData}
-          filterValue={filterValue}
-        />
+        <WindChart dataPoints={filteredDataPoints} />
         <WindDirectionChart data={windDirectionData} />
         <WindFilter {...{ updateFilter, filterValue }} />
         <TemperatureChart data={tempData} />
@@ -62,10 +58,9 @@ const mapStateToProps = state => ({
   meteogramUrl: state.singleStationReducer.meteogramUrl,
   marinogramUrl: state.singleStationReducer.marinogramUrl,
   text: state.singleStationReducer.text,
-  windData: state.singleStationReducer.windData,
   windDirectionData: state.singleStationReducer.windDirectionData,
   tempData: state.singleStationReducer.tempData,
-  newData: state.singleStationReducer.newData,
+  filteredDataPoints: state.singleStationReducer.filteredDataPoints,
   filterValue: state.singleStationReducer.filterValue
 });
 
@@ -86,11 +81,10 @@ Station.propTypes = {
   text: PropTypes.string.isRequired,
   meteogramUrl: PropTypes.string.isRequired,
   marinogramUrl: PropTypes.string.isRequired,
-  windData: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   windDirectionData: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   tempData: PropTypes.shape({}).isRequired,
-  newData: PropTypes.arrayOf(PropTypes.shape({})),
   updateFilter: PropTypes.func.isRequired,
+  filteredDataPoints: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   filterValue: PropTypes.string.isRequired
 };
 

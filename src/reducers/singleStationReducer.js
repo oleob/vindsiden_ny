@@ -16,14 +16,10 @@ const initialState = {
   meteogramUrl: '',
   marinogramUrl: '',
   text: '',
-  windData: [
-    { name: 'Gj. vind', data: {} },
-    { name: 'Maks vind', data: {} },
-    { name: 'Min vind', data: {} }
-  ],
   windDirectionData: [],
   tempData: {},
-  newData: [],
+  dataPoints: [],
+  filteredDataPoints: [],
   fetching: false,
   filterValue: '5'
 };
@@ -42,16 +38,10 @@ const filterData = data => {
 };
 
 const createWindData = data => {
-  let avgWindData = {};
-  let maxWindData = {};
-  let minWindData = {};
   let windDirectionData = [];
   let tempData = {};
   data.map(point => {
     let date = point.Time;
-    avgWindData[date] = point.WindAvg.toFixed(2);
-    maxWindData[date] = point.WindMax.toFixed(2);
-    minWindData[date] = point.WindMin.toFixed(2);
     tempData[date] = point.Temperature1.toFixed(2);
     windDirectionData.push({
       date: new Date(date),
@@ -74,17 +64,14 @@ const createWindData = data => {
     });
   }
   return {
-    windData: [
-      { name: 'Gj. vind', data: avgWindData },
-      { name: 'Maks vind', data: maxWindData },
-      { name: 'Min vind', data: minWindData }
-    ],
     tempData,
     windDirectionData
   };
 };
 
 const singleStationReducer = (state = initialState, action) => {
+  let filteredDataPoints;
+  let filterDate;
   switch (action.type) {
     case FETCHING_STATION:
       return {
@@ -139,11 +126,17 @@ const singleStationReducer = (state = initialState, action) => {
       };
     case FETCHED_WIND_DATA:
       const data = createWindData(action.payload.data);
-      const newData = filterData(action.payload.data);
+      const dataPoints = filterData(action.payload.data);
+      filterDate = new Date();
+      filterDate.setHours(filterDate.getHours() - parseInt(state.filterValue));
+      filteredDataPoints = dataPoints.filter(
+        dataPoint => dataPoint.date.valueOf() >= filterDate.valueOf()
+      );
       return {
         ...state,
         ...data,
-        newData,
+        dataPoints,
+        filteredDataPoints,
         fetching: false
       };
     case FETCHING_WIND_DATA_FAILED:
@@ -153,8 +146,16 @@ const singleStationReducer = (state = initialState, action) => {
         fetching: false
       };
     case UPDATE_FILTER:
+      filterDate = new Date();
+      filterDate.setHours(
+        filterDate.getHours() - parseInt(action.payload.value)
+      );
+      filteredDataPoints = state.dataPoints.filter(
+        dataPoint => dataPoint.date.valueOf() >= filterDate.valueOf()
+      );
       return {
         ...state,
+        filteredDataPoints,
         filterValue: action.payload.value
       };
     default:

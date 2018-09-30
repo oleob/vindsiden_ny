@@ -7,18 +7,29 @@ body,
   padding: 0;
 }
 
-.grid {
-  height: 100%;
-  width: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  grid-template-columns: 1fr 4fr 1fr;
+@media (min-width: 320px) {
+  .grid {
+    height: 100%;
+    width: 100%;
+  }
+  .container {
+    text-align: center;
+  }
 }
 
-.container {
-  grid-column: 2/3;
-  grid-row: 2/3;
-  text-align: center;
+@media (min-width: 1281px) {
+  .grid {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr 4fr 1fr;
+  }
+  .container {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    text-align: center;
+  }
 }
 
 .favoriteIcon {

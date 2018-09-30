@@ -4,7 +4,7 @@ const InfoBox = ({ name, city, region, copyright, text }) => {
   const copyrightString = copyright.length > 0 ? 'Eies av ' + copyright : '';
   const regionString = region.length > 0 ? ', ' + region : '';
   return (
-    <div>
+    <div className="infoBox">
       <h1>{name}</h1>
       <h2>
         {city}

@@ -9,8 +9,9 @@ import Error404 from './Error404';
 
 const Routes = () => (
   <div>
-    <NavBar />
     <div className="grid">
+      <NavBar />
+
       <Switch>
         <Route exact path="/">
           <Home />

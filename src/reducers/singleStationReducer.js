@@ -4,7 +4,8 @@ import {
   FETCHING_STATION_FAILED,
   FETCHING_WIND_DATA,
   FETCHED_WIND_DATA,
-  FETCHING_WIND_DATA_FAILED
+  FETCHING_WIND_DATA_FAILED,
+  UPDATE_FILTER
 } from '../actions/singleStationActions';
 
 const initialState = {
@@ -22,7 +23,22 @@ const initialState = {
   ],
   windDirectionData: [],
   tempData: {},
-  fetching: false
+  newData: [],
+  fetching: false,
+  filterValue: '5'
+};
+
+const filterData = data => {
+  return data.map(dataPoint => {
+    return {
+      date: new Date(dataPoint.Time),
+      avgWind: dataPoint.WindAvg.toFixed(2),
+      maxWind: dataPoint.WindMax.toFixed(2),
+      minWind: dataPoint.WindMin.toFixed(2),
+      direction: dataPoint.DirectionAvg,
+      temperature: dataPoint.Temperature1.toFixed(2)
+    };
+  });
 };
 
 const createWindData = data => {
@@ -32,12 +48,13 @@ const createWindData = data => {
   let windDirectionData = [];
   let tempData = {};
   data.map(point => {
-    avgWindData[point.Time] = point.WindAvg.toFixed(2);
-    maxWindData[point.Time] = point.WindMax.toFixed(2);
-    minWindData[point.Time] = point.WindMin.toFixed(2);
-    tempData[point.Time] = point.Temperature1.toFixed(2);
+    let date = point.Time;
+    avgWindData[date] = point.WindAvg.toFixed(2);
+    maxWindData[date] = point.WindMax.toFixed(2);
+    minWindData[date] = point.WindMin.toFixed(2);
+    tempData[date] = point.Temperature1.toFixed(2);
     windDirectionData.push({
-      date: new Date(point.Time),
+      date: new Date(date),
       direction: point.DirectionAvg
     });
     return null;
@@ -122,9 +139,11 @@ const singleStationReducer = (state = initialState, action) => {
       };
     case FETCHED_WIND_DATA:
       const data = createWindData(action.payload.data);
+      const newData = filterData(action.payload.data);
       return {
         ...state,
         ...data,
+        newData,
         fetching: false
       };
     case FETCHING_WIND_DATA_FAILED:
@@ -132,6 +151,11 @@ const singleStationReducer = (state = initialState, action) => {
         ...state,
         windData: [],
         fetching: false
+      };
+    case UPDATE_FILTER:
+      return {
+        ...state,
+        filterValue: action.payload.value
       };
     default:
       return state;

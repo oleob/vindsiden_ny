@@ -8,6 +8,8 @@ const FETCHING_WIND_DATA = 'FETCHING_WIND_DATA';
 const FETCHED_WIND_DATA = 'FETCHED_WIND_DATA';
 const FETCHING_WIND_DATA_FAILED = 'FETCHING_WIND_DATA_FAILED';
 
+const UPDATE_FILTER = 'UPDAET_FILTER';
+
 const fetchWindData = (id, date) => dispatch => {
   dispatch({ type: FETCHING_WIND_DATA });
   getRequest(
@@ -30,12 +32,17 @@ const fetchSingleStation = id => dispatch => {
     });
 };
 
-export { fetchSingleStation, fetchWindData };
+const updateFilter = value => dispatch => {
+  dispatch({ type: UPDATE_FILTER, payload: { value } });
+};
+
+export { fetchSingleStation, fetchWindData, updateFilter };
 export {
   FETCHING_STATION,
   FETCHED_STATION,
   FETCHING_STATION_FAILED,
   FETCHING_WIND_DATA,
   FETCHED_WIND_DATA,
-  FETCHING_WIND_DATA_FAILED
+  FETCHING_WIND_DATA_FAILED,
+  UPDATE_FILTER
 };

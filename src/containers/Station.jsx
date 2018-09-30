@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 
 import {
   fetchSingleStation,
-  fetchWindData
+  fetchWindData,
+  updateFilter
 } from '../actions/singleStationActions';
 
 import InfoBox from '../components/InfoBox';
 import WindChart from '../components/WindChart';
 import WindDirectionChart from '../components/WindDirectionChart';
 import TemperatureChart from '../components/TemperatureChart';
+import WindFilter from '../components/WindFilter';
 
 class Station extends Component {
   componentDidMount() {
@@ -30,21 +32,23 @@ class Station extends Component {
       marinogramUrl,
       windData,
       windDirectionData,
-      tempData
+      tempData,
+      newData,
+      updateFilter,
+      filterValue
     } = this.props;
 
     return (
       <div className="container">
         <InfoBox {...{ name, region, city, copyright, text }} />
-        <WindChart data={windData} />
+        <WindChart
+          data={windData}
+          dataPoints={newData}
+          filterValue={filterValue}
+        />
         <WindDirectionChart data={windDirectionData} />
+        <WindFilter {...{ updateFilter, filterValue }} />
         <TemperatureChart data={tempData} />
-        {meteogramUrl.length > 0 && (
-          <img src={meteogramUrl + 'avansert_meteogram.png'} />
-        )}
-        {marinogramUrl.length > 0 && (
-          <img src={marinogramUrl + 'marinogram.png'} />
-        )}
       </div>
     );
   }
@@ -60,12 +64,15 @@ const mapStateToProps = state => ({
   text: state.singleStationReducer.text,
   windData: state.singleStationReducer.windData,
   windDirectionData: state.singleStationReducer.windDirectionData,
-  tempData: state.singleStationReducer.tempData
+  tempData: state.singleStationReducer.tempData,
+  newData: state.singleStationReducer.newData,
+  filterValue: state.singleStationReducer.filterValue
 });
 
 const mapDispatchToProps = {
   fetchSingleStation,
-  fetchWindData
+  fetchWindData,
+  updateFilter
 };
 
 Station.propTypes = {
@@ -81,7 +88,10 @@ Station.propTypes = {
   marinogramUrl: PropTypes.string.isRequired,
   windData: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   windDirectionData: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  tempData: PropTypes.shape({}).isRequired
+  tempData: PropTypes.shape({}).isRequired,
+  newData: PropTypes.arrayOf(PropTypes.shape({})),
+  updateFilter: PropTypes.func.isRequired,
+  filterValue: PropTypes.string.isRequired
 };
 
 export default connect(

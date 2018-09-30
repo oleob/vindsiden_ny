@@ -5,6 +5,7 @@ import Home from './Home';
 import Station from './Station';
 import About from './About';
 import NavBar from '../components/NavBar';
+import Error404 from './Error404';
 
 const Routes = () => (
   <div>
@@ -19,8 +20,11 @@ const Routes = () => (
           path="/station/:id"
           render={props => <Station id={props.match.params.id} />}
         />
-        <Route>
+        <Route exact path="/about">
           <About />
+        </Route>
+        <Route>
+          <Error404 />
         </Route>
       </Switch>
     </div>

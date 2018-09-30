@@ -8,7 +8,7 @@ class SearchBox extends Component {
 
   handleChange = event => {
     const searchTerm = event.target.value;
-    this.props.updateSearch(searchTerm);
+    this.props.updateSearch(searchTerm.toLowerCase());
     this.setState({
       searchTerm
     });

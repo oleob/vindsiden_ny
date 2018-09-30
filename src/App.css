@@ -41,4 +41,14 @@ body,
   padding-bottom: 0px;
   margin: 15px;
   text-align: left;
+  animation: fadein 0.2s;
+}
+
+@keyframes fadein {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
 }

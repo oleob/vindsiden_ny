@@ -86,8 +86,11 @@ const stationReducer = (state = initialState, action) => {
         favorites
       };
     case UPDATE_SEARCH:
-      searchResult = state.stations.filter(station =>
-        station.Name.toLowerCase().includes(action.payload.searchTerm)
+      searchResult = state.stations.filter(
+        station =>
+          station.Name.toLowerCase().includes(action.payload.searchTerm) ||
+          station.City.toLowerCase().includes(action.payload.searchTerm) ||
+          station.Region.toLowerCase().includes(action.payload.searchTerm)
       );
       return {
         ...state,

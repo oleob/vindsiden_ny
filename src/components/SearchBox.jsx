@@ -17,6 +17,7 @@ class SearchBox extends Component {
   render() {
     return (
       <div>
+        <h1>Stasjoner</h1>
         <TextField
           label="Søk"
           value={this.state.searchTerm}

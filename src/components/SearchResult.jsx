@@ -9,7 +9,6 @@ class SearchResult extends Component {
 
     return (
       <div>
-        <h1>Stasjoner</h1>
         <div className="stations">
           {this.props.stations.map(station => (
             <StationPreview

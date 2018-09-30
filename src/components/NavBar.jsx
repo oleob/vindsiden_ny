@@ -5,7 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import { withRouter } from 'react-router-dom';
 
 const styles = {
   root: {
@@ -23,7 +23,7 @@ const styles = {
 };
 
 function ButtonAppBar(props) {
-  const { classes } = props;
+  const { classes, history } = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -32,11 +32,12 @@ function ButtonAppBar(props) {
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
+            onClick={() => history.push('/')}
           >
-            <MenuIcon />
+            <img src="/windonly.png" style={{ width: 35 }} />
           </IconButton>
           <Typography variant="title" color="inherit" className={classes.flex}>
-            Vind?
+            Vindsiden
           </Typography>
         </Toolbar>
       </AppBar>
@@ -48,4 +49,4 @@ ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ButtonAppBar);
+export default withRouter(withStyles(styles)(ButtonAppBar));

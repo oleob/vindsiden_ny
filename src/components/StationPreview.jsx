@@ -56,7 +56,7 @@ class StationPreview extends Component {
             color="primary"
             onClick={() => history.push('/station/' + StationID)}
           >
-            Mer info
+            Info
           </Button>
         </List>
       </Paper>

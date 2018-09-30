@@ -7,7 +7,10 @@ import {
   fetchWindData
 } from '../actions/singleStationActions';
 
+import InfoBox from '../components/InfoBox';
 import WindChart from '../components/WindChart';
+import WindDirectionChart from '../components/WindDirectionChart';
+import TemperatureChart from '../components/TemperatureChart';
 
 class Station extends Component {
   componentDidMount() {
@@ -25,20 +28,17 @@ class Station extends Component {
       text,
       meteogramUrl,
       marinogramUrl,
-      windData
+      windData,
+      windDirectionData,
+      tempData
     } = this.props;
-    const copyrightString = copyright.length > 0 ? 'Eies av ' + copyright : '';
-    const regionString = region.length > 0 ? ', ' + region : '';
+
     return (
       <div className="container">
-        <h1>{name}</h1>
-        <h2>
-          {city}
-          {regionString}
-        </h2>
-        <h3>{copyrightString}</h3>
-        <p>{text}</p>
+        <InfoBox {...{ name, region, city, copyright, text }} />
         <WindChart data={windData} />
+        <WindDirectionChart data={windDirectionData} />
+        <TemperatureChart data={tempData} />
         {meteogramUrl.length > 0 && (
           <img src={meteogramUrl + 'avansert_meteogram.png'} />
         )}
@@ -58,7 +58,9 @@ const mapStateToProps = state => ({
   meteogramUrl: state.singleStationReducer.meteogramUrl,
   marinogramUrl: state.singleStationReducer.marinogramUrl,
   text: state.singleStationReducer.text,
-  windData: state.singleStationReducer.windData
+  windData: state.singleStationReducer.windData,
+  windDirectionData: state.singleStationReducer.windDirectionData,
+  tempData: state.singleStationReducer.tempData
 });
 
 const mapDispatchToProps = {
@@ -77,7 +79,9 @@ Station.propTypes = {
   text: PropTypes.string.isRequired,
   meteogramUrl: PropTypes.string.isRequired,
   marinogramUrl: PropTypes.string.isRequired,
-  windData: PropTypes.arrayOf(PropTypes.shape({})).isRequired
+  windData: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  windDirectionData: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  tempData: PropTypes.shape({}).isRequired
 };
 
 export default connect(

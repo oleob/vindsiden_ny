@@ -15,8 +15,56 @@ const initialState = {
   meteogramUrl: '',
   marinogramUrl: '',
   text: '',
-  windData: [],
+  windData: [
+    { name: 'Gj. vind', data: {} },
+    { name: 'Maks vind', data: {} },
+    { name: 'Min vind', data: {} }
+  ],
+  windDirectionData: [],
+  tempData: {},
   fetching: false
+};
+
+const createWindData = data => {
+  let avgWindData = {};
+  let maxWindData = {};
+  let minWindData = {};
+  let windDirectionData = [];
+  let tempData = {};
+  data.map(point => {
+    avgWindData[point.Time] = point.WindAvg.toFixed(2);
+    maxWindData[point.Time] = point.WindMax.toFixed(2);
+    minWindData[point.Time] = point.WindMin.toFixed(2);
+    tempData[point.Time] = point.Temperature1.toFixed(2);
+    windDirectionData.push({
+      date: new Date(point.Time),
+      direction: point.DirectionAvg
+    });
+    return null;
+  });
+  if (windDirectionData.length > 0) {
+    const firstX = windDirectionData[0].date.valueOf();
+    const lastX = windDirectionData[
+      windDirectionData.length - 1
+    ].date.valueOf();
+    const xLength = lastX - firstX;
+    windDirectionData = windDirectionData.map(point => {
+      const x = 60 + (910 * (point.date.valueOf() - firstX)) / xLength;
+      return {
+        x,
+        direction: point.direction
+      };
+    });
+  }
+  return {
+    windData: [
+      { name: 'Gj. vind', data: avgWindData },
+      { name: 'Maks vind', data: maxWindData },
+      { name: 'Min vind', data: minWindData }
+    ],
+    tempData,
+    windDirectionData
+  };
 };
 
 const singleStationReducer = (state = initialState, action) => {
@@ -73,22 +121,10 @@ const singleStationReducer = (state = initialState, action) => {
         fetching: true
       };
     case FETCHED_WIND_DATA:
-      let avgWindData = {};
-      let maxWindData = {};
-      let minWindData = {};
-      action.payload.data.map(point => {
-        avgWindData[point.Time] = point.WindAvg.toFixed(2);
-        maxWindData[point.Time] = point.WindMax.toFixed(2);
-        minWindData[point.Time] = point.WindMin.toFixed(2);
-        return null;
-      });
+      const data = createWindData(action.payload.data);
       return {
         ...state,
-        windData: [
-          { name: 'Gj. vind', data: avgWindData },
-          { name: 'Maks vind', data: maxWindData },
-          { name: 'Min vind', data: minWindData }
-        ],
+        ...data,
         fetching: false
       };
     case FETCHING_WIND_DATA_FAILED:

@@ -1,5 +1,5 @@
 [[redirects]]
   from = "/api/*"
-  to = "http://vindsiden.no/api/stations"
+  to = "http://vindsiden.no/api/:splat"
   status = 200
   force = true

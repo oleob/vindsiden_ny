@@ -32,7 +32,6 @@ class Station extends Component {
       marinogramUrl,
       windDirectionData,
       tempData,
-      newData,
       updateFilter,
       filteredDataPoints,
       filterValue
@@ -41,9 +40,9 @@ class Station extends Component {
     return (
       <div className="container">
         <InfoBox {...{ name, region, city, copyright, text }} />
-        <WindChart dataPoints={filteredDataPoints} />
-        <WindDirectionChart data={windDirectionData} />
         <WindFilter {...{ updateFilter, filterValue }} />
+        <WindChart dataPoints={filteredDataPoints} />
+        <WindDirectionChart dataPoints={filteredDataPoints} />
         <TemperatureChart dataPoints={filteredDataPoints} />
       </div>
     );

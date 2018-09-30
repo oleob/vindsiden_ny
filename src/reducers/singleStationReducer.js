@@ -36,35 +36,6 @@ const filterData = data => {
   });
 };
 
-const createWindData = data => {
-  let windDirectionData = [];
-  data.map(point => {
-    let date = point.Time;
-    windDirectionData.push({
-      date: new Date(date),
-      direction: point.DirectionAvg
-    });
-    return null;
-  });
-  if (windDirectionData.length > 0) {
-    const firstX = windDirectionData[0].date.valueOf();
-    const lastX = windDirectionData[
-      windDirectionData.length - 1
-    ].date.valueOf();
-    const xLength = lastX - firstX;
-    windDirectionData = windDirectionData.map(point => {
-      const x = 60 + (910 * (point.date.valueOf() - firstX)) / xLength;
-      return {
-        x,
-        direction: point.direction
-      };
-    });
-  }
-  return {
-    windDirectionData
-  };
-};
-
 const singleStationReducer = (state = initialState, action) => {
   let filteredDataPoints;
   let filterDate;
@@ -121,7 +92,6 @@ const singleStationReducer = (state = initialState, action) => {
         fetching: true
       };
     case FETCHED_WIND_DATA:
-      const data = createWindData(action.payload.data);
       const dataPoints = filterData(action.payload.data);
       filterDate = new Date();
       filterDate.setHours(filterDate.getHours() - parseInt(state.filterValue));
@@ -130,7 +100,6 @@ const singleStationReducer = (state = initialState, action) => {
       );
       return {
         ...state,
-        ...data,
         dataPoints,
         filteredDataPoints,
         fetching: false

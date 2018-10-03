@@ -50,6 +50,9 @@ const singleStationReducer = (state = initialState, action) => {
         meteogramUrl: '',
         marinogramUrl: '',
         text: '',
+        windDirectionData: [],
+        dataPoints: [],
+        filteredDataPoints: [],
         fetching: true
       };
     case FETCHED_STATION:
@@ -83,6 +86,9 @@ const singleStationReducer = (state = initialState, action) => {
         meteogramUrl: '',
         marinogramUrl: '',
         text: '',
+        windDirectionData: [],
+        dataPoints: [],
+        filteredDataPoints: [],
         fetching: false
       };
     case FETCHING_WIND_DATA:

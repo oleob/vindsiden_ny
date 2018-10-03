@@ -2,7 +2,7 @@
 Uses the API-provided by [Vindsiden.no](http://vindsiden.no/)
 
 ## Demo
-Visit [here](https://boring-dubinsky-ac8af1.netlify.com/) to view the site in action.
+Click [here](https://boring-dubinsky-ac8af1.netlify.com/) to view the site in action.
 
 ## How to run
 1. Clone repository

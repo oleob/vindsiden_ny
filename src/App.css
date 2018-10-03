@@ -72,7 +72,7 @@ body,
 }
 
 .footer {
-  padding: 30px;
+  padding: 15px;
   grid-column: 1/4;
   grid-row: 3/4;
   text-align: center;

@@ -64,3 +64,9 @@ body,
     transform: scale(1);
   }
 }
+
+.weatherImage {
+  margin: 10px;
+  width: 100%;
+  max-width: 828px;
+}

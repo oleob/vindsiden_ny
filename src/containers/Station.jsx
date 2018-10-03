@@ -13,6 +13,7 @@ import WindChart from '../components/WindChart';
 import WindDirectionChart from '../components/WindDirectionChart';
 import TemperatureChart from '../components/TemperatureChart';
 import WindFilter from '../components/WindFilter';
+import WeatherData from '../components/WeatherData';
 
 class Station extends Component {
   componentDidMount() {
@@ -44,6 +45,7 @@ class Station extends Component {
         <WindChart dataPoints={filteredDataPoints} />
         <WindDirectionChart dataPoints={filteredDataPoints} />
         <TemperatureChart dataPoints={filteredDataPoints} />
+        <WeatherData {...{ meteogramUrl, marinogramUrl }} />
       </div>
     );
   }

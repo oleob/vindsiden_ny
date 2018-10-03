@@ -9,9 +9,9 @@ class Favorites extends Component {
 
     return (
       <div>
+        <h1>Favoritter</h1>
         {this.props.favorites.length > 0 && (
           <div>
-            <h1>Favoritter</h1>
             <div className="stations">
               {this.props.favorites.map(station => (
                 <StationPreview
@@ -23,6 +23,12 @@ class Favorites extends Component {
               ))}
             </div>
           </div>
+        )}
+        {this.props.favorites.length === 0 && (
+          <p>
+            Du har ingen favoritter. Trykk på stjernen ved navnet til en stasjon
+            for å legge den til som favoritt.
+          </p>
         )}
       </div>
     );

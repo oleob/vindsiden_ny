@@ -11,7 +11,7 @@ class WindFilter extends Component {
     return (
       <div>
         <FormControl component="fieldset">
-          <FormLabel component="legend">Filter</FormLabel>
+          <FormLabel component="legend">Vis vind for</FormLabel>
           <RadioGroup
             aria-label="Filter"
             value={filterValue}

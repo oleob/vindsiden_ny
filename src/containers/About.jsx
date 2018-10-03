@@ -8,6 +8,7 @@ const About = () => {
         Denne siden benytter seg av API-et til{' '}
         <a href="http://vindsiden.no">vindsiden.no</a>.
       </p>
+      <p>Trykk på stjernen på en stasjon for å legge den til som favoritt.</p>
       <p>
         Ved spørsmål eller forbedringsforslag send en mail til
         ole.barsch@gmail.com.

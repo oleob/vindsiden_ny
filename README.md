@@ -13,4 +13,5 @@ Visit https://boring-dubinsky-ac8af1.netlify.com/ to view the site in action.
 * React
 * Redux
 * Material-ui
+* Chartkick
 

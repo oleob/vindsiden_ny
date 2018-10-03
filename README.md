@@ -1,8 +1,8 @@
 # Vindsiden.no alternative frontend
-Uses the API-provided by vindsiden.no
+Uses the API-provided by [Vindsiden.no](http://vindsiden.no/)
 
 ## Demo
-Visit https://boring-dubinsky-ac8af1.netlify.com/ to view the site in action.
+Visit [here](https://boring-dubinsky-ac8af1.netlify.com/) to view the site in action.
 
 ## How to run
 1. Clone repository

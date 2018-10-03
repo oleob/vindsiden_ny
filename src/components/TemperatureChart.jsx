@@ -26,7 +26,7 @@ class TemperatureChart extends Component {
 
   render() {
     return (
-      <div>
+      <div className="temperatureChart">
         {Object.keys(this.state.data).length > 0 && (
           <LineChart
             ytitle="°C"

@@ -6,11 +6,15 @@ const About = () => {
       <h1>Om oss</h1>
       <p>
         Denne siden benytter seg av API-et til{' '}
-        <a href="https://vindsiden.no">vindsiden.no</a>.
+        <a href="http://vindsiden.no">vindsiden.no</a>.
       </p>
       <p>
         Ved spørsmål eller forbedringsforslag send en mail til
         ole.barsch@gmail.com.
+      </p>
+      <p>
+        Koden til nettsiden kan finnes{' '}
+        <a href="https://github.com/oleob/vindsiden_ny">her</a>.
       </p>
     </div>
   );

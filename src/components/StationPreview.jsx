@@ -38,18 +38,23 @@ class StationPreview extends Component {
             )}
             <ListItemText primary={Name} />
           </ListItem>
-          <ListItem>
-            <Avatar>
-              <PlaceIcon />
-            </Avatar>
-            <ListItemText secondary={Region} />
-          </ListItem>
-          <ListItem>
-            <Avatar>
-              <CityIcon />
-            </Avatar>
-            <ListItemText secondary={City} />
-          </ListItem>
+          {Region.length > 0 && (
+            <ListItem>
+              <Avatar>
+                <PlaceIcon />
+              </Avatar>
+              <ListItemText secondary={Region} />
+            </ListItem>
+          )}
+          {City.length > 0 && (
+            <ListItem>
+              <Avatar>
+                <CityIcon />
+              </Avatar>
+              <ListItemText secondary={City} />
+            </ListItem>
+          )}
+
           <Button
             variant="raised"
             size="large"

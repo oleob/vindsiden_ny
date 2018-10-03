@@ -1,1 +1,2 @@
-Hei hei, håper du har en fin dag :)
+##Vindsiden.no alternative frontend
+

@@ -10,7 +10,7 @@ Visit https://boring-dubinsky-ac8af1.netlify.com/ to view the site in action.
 3. Run npm start
 
 ## Libraries used
-1. React
-2. Redux
-3. Material-ui
+* React
+* Redux
+* Material-ui
 

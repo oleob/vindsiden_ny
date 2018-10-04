@@ -12,6 +12,11 @@ import PlaceIcon from '@material-ui/icons/Place';
 import CityIcon from '@material-ui/icons/LocationCity';
 import Button from '@material-ui/core/Button';
 
+const listItemStyle = {
+  paddingLeft: 0,
+  paddingRight: 0
+};
+
 class StationPreview extends Component {
   toggleFavorite = () => {
     const { StationID, isFavorite, addFavorite, removeFavorite } = this.props;
@@ -27,7 +32,7 @@ class StationPreview extends Component {
     return (
       <Paper className="stationPreview" key={StationID}>
         <List>
-          <ListItem>
+          <ListItem style={listItemStyle}>
             {isFavorite ? (
               <Star className="favoriteIcon" onClick={this.toggleFavorite} />
             ) : (
@@ -39,7 +44,7 @@ class StationPreview extends Component {
             <ListItemText primary={Name} />
           </ListItem>
           {Region.length > 0 && (
-            <ListItem>
+            <ListItem style={listItemStyle}>
               <Avatar>
                 <PlaceIcon />
               </Avatar>
@@ -47,7 +52,7 @@ class StationPreview extends Component {
             </ListItem>
           )}
           {City.length > 0 && (
-            <ListItem>
+            <ListItem style={listItemStyle}>
               <Avatar>
                 <CityIcon />
               </Avatar>
